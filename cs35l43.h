@@ -1,5 +1,5 @@
-#if !defined(_CS35L41_H_)
-#define _CS35L41_H_
+#if !defined(_CS35L43_H_)
+#define _CS35L43_H_
 
 #pragma warning(disable:4200)  // suppress nameless struct/union warning
 #pragma warning(disable:4201)  // suppress nameless struct/union warning
@@ -21,11 +21,11 @@
 // String definitions
 //
 
-#define DRIVERNAME                 "cs35l41.sys: "
+#define DRIVERNAME                 "cs35l43.sys: "
 
-#define CS35L41_POOL_TAG            (ULONG) '5101'
+#define CS35L43_POOL_TAG            (ULONG) 'C543'
 
-typedef struct _CS35L41_CONTEXT
+typedef struct _CS35L43_CONTEXT
 {
 
 	WDFDEVICE FxDevice;
@@ -39,9 +39,9 @@ typedef struct _CS35L41_CONTEXT
 
 	BOOLEAN DevicePoweredOn;
 
-} CS35L41_CONTEXT, *PCS35L41_CONTEXT;
+} CS35L43_CONTEXT, *PCS35L43_CONTEXT;
 
-WDF_DECLARE_CONTEXT_TYPE_WITH_NAME(CS35L41_CONTEXT, GetDeviceContext)
+WDF_DECLARE_CONTEXT_TYPE_WITH_NAME(CS35L43_CONTEXT, GetDeviceContext)
 
 //
 // Function definitions
@@ -49,11 +49,11 @@ WDF_DECLARE_CONTEXT_TYPE_WITH_NAME(CS35L41_CONTEXT, GetDeviceContext)
 
 DRIVER_INITIALIZE DriverEntry;
 
-EVT_WDF_DRIVER_UNLOAD Cs35l41DriverUnload;
+EVT_WDF_DRIVER_UNLOAD Cs35l43DriverUnload;
 
-EVT_WDF_DRIVER_DEVICE_ADD Cs35l41EvtDeviceAdd;
+EVT_WDF_DRIVER_DEVICE_ADD Cs35l43EvtDeviceAdd;
 
-NTSTATUS cs35l41_reg_bulk_write(PCS35L41_CONTEXT pDevice, UINT32 reg, UINT8* data, UINT32 length);
+NTSTATUS cs35l43_reg_bulk_write(PCS35L43_CONTEXT pDevice, UINT32 reg, UINT8* data, UINT32 length);
 
 //
 // Helper macros
@@ -67,16 +67,16 @@ NTSTATUS cs35l41_reg_bulk_write(PCS35L41_CONTEXT pDevice, UINT32 reg, UINT8* dat
 #define DBG_PNP   2
 #define DBG_IOCTL 4
 
-#if 0
-#define Cs35l41Print(dbglevel, dbgcatagory, fmt, ...) {          \
-    if (Cs35l41DebugLevel >= dbglevel &&                         \
-        (Cs35l41DebugCatagories && dbgcatagory))                 \
+#if 1
+#define Cs35l43Print(dbglevel, dbgcatagory, fmt, ...) {          \
+    if (Cs35l43DebugLevel >= dbglevel &&                         \
+        (Cs35l43DebugCatagories && dbgcatagory))                 \
 	    {                                                           \
 		DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, DRIVERNAME fmt, __VA_ARGS__);                             \
 	    }                                                           \
 }
 #else
-#define Cs35l41Print(dbglevel, fmt, ...) {                       \
+#define Cs35l43Print(dbglevel, fmt, ...) {                       \
 }
 #endif
 

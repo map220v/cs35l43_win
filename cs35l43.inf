@@ -1,5 +1,5 @@
 ;
-; cs35l41.inf
+; cs35l43.inf
 ;
 
 [Version]
@@ -7,7 +7,7 @@ Signature   = "$WINDOWS NT$"
 Class       = Media
 ClassGuid   = {4d36e96c-e325-11ce-bfc1-08002be10318}
 Provider    = %ManufacturerName%
-CatalogFile = cs35l41.cat
+CatalogFile = cs35l43.cat
 DriverVer   = 01/01/2023,1.0.0.1
 PnpLockdown = 1
 
@@ -20,10 +20,10 @@ DefaultDestDir = 12
 1 = %DiskName%,,,""
 
 [SourceDisksFiles]
-cs35l41.sys  = 1,,
+cs35l43.sys  = 1,,
 
 ;*****************************************
-; cs35l41 Install Section
+; cs35l43 Install Section
 ;*****************************************
 
 [Manufacturer]
@@ -32,30 +32,30 @@ cs35l41.sys  = 1,,
 ; Decorated model section take precedence over undecorated 
 ; ones on XP and later.
 [Standard.NT$ARCH$]
-%cs35l41.DeviceDesc%=cs35l41_Device, ACPI\10133541
+%cs35l43.DeviceDesc%=cs35l43_Device, ACPI\10133543
 
-[cs35l41_Device.NT]
+[cs35l43_Device.NT]
 CopyFiles=Drivers_Dir
 
 [Drivers_Dir]
-cs35l41.sys
+cs35l43.sys
 
 ;-------------- Service installation
-[cs35l41_Device.NT.Services]
-AddService = cs35l41,%SPSVCINST_ASSOCSERVICE%, cs35l41_Service_Inst
+[cs35l43_Device.NT.Services]
+AddService = cs35l43,%SPSVCINST_ASSOCSERVICE%, cs35l43_Service_Inst
 
-; -------------- cs35l41 driver install sections
-[cs35l41_Service_Inst]
-DisplayName    = %cs35l41.SVCDESC%
+; -------------- cs35l43 driver install sections
+[cs35l43_Service_Inst]
+DisplayName    = %cs35l43.SVCDESC%
 ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
 StartType      = 3               ; SERVICE_DEMAND_START 
 ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\cs35l41.sys
+ServiceBinary  = %12%\cs35l43.sys
 LoadOrderGroup = Base
 
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
 ManufacturerName   = "map220v"
-DiskName           = "CS35L41 Installation Disk"
-cs35l41.DeviceDesc = "Cirrus Logic CS35L41 Codec" ; Cirrus Logic CS35L41 I2S Amplifier
-cs35l41.SVCDESC    = "CS35L41 Service"
+DiskName           = "CS35L43 Installation Disk"
+cs35l43.DeviceDesc = "Cirrus Logic CS35L43 Codec"
+cs35l43.SVCDESC    = "CS35L43 Service"

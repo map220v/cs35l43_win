@@ -18,13 +18,13 @@ Revision History:
 
 --*/
 
-#include "cs35l41.h"
+#include "cs35l43.h"
 #include "spb.h"
 #include <reshub.h>
 #include <spb.h>
 
-static ULONG Cs35l41DebugLevel = 100;
-static ULONG Cs35l41DebugCatagories = DBG_INIT || DBG_PNP || DBG_IOCTL;
+static ULONG Cs35l43DebugLevel = 100;
+static ULONG Cs35l43DebugCatagories = DBG_INIT || DBG_PNP || DBG_IOCTL;
 
 NTSTATUS
 SpbDoWriteDataSynchronously(
@@ -66,17 +66,17 @@ NTSTATUS Status indicating success or failure
 		status = WdfMemoryCreate(
 			WDF_NO_OBJECT_ATTRIBUTES,
 			NonPagedPool,
-			CS35L41_POOL_TAG,
+			CS35L43_POOL_TAG,
 			length,
 			&memory,
 			(PVOID*)&buffer);
 
 		if (!NT_SUCCESS(status))
 		{
-			Cs35l41Print(
+			Cs35l43Print(
 				DEBUG_LEVEL_ERROR,
 				DBG_IOCTL,
-				"Error allocating memory for Spb write - %!STATUS!",
+				"Error allocating memory for Spb write - 0x%X\n",
 				status);
 			goto exit;
 		}
@@ -108,10 +108,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error writing to Spb - %!STATUS!",
+			"Error writing to Spb - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -209,17 +209,17 @@ NTSTATUS Status indicating success or failure
 		status = WdfMemoryCreate(
 			WDF_NO_OBJECT_ATTRIBUTES,
 			NonPagedPool,
-			CS35L41_POOL_TAG,
+			CS35L43_POOL_TAG,
 			length,
 			&memory,
 			(PVOID*)&buffer);
 
 		if (!NT_SUCCESS(status))
 		{
-			Cs35l41Print(
+			Cs35l43Print(
 				DEBUG_LEVEL_ERROR,
 				DBG_IOCTL,
-				"Error allocating memory for Spb write - %!STATUS!",
+				"Error allocating memory for Spb write - 0x%X\n",
 				status);
 			goto exit;
 		}
@@ -252,10 +252,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error writing to Spb - %!STATUS!",
+			"Error writing to Spb - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -359,11 +359,11 @@ _SpbSequence(
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
 			"WdfMemoryCreatePreallocated failed creating memory for sequence"
-			"status:%!STATUS!",
+			"status:0x%X\n",
 			status);
 
 		goto exit;
@@ -417,10 +417,10 @@ _SpbSequence(
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Failed sending SPB Sequence IOCTL bytes:%lu status:%!STATUS!",
+			"Failed sending SPB Sequence IOCTL bytes:%lu status:0x%X\n",
 			(ULONG)bytes,
 			status);
 
@@ -476,11 +476,11 @@ SpbWriteRead(
 		Data == NULL || Length <= 0)
 	{
 		status = STATUS_INVALID_PARAMETER;
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
 			"SpbWriteRead failed parameters DataFirst:%p DataLengthFirst:%lu "
-			"DataSecond:%p DataLengthSecond:%lu status:%!STATUS!",
+			"DataSecond:%p DataLengthSecond:%lu status:0x%X\n",
 			SendData,
 			SendLength,
 			Data,
@@ -534,11 +534,11 @@ SpbWriteRead(
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
 			"SpbSequence failed sending a sequence "
-			"status:%!STATUS!",
+			"status:0x%X\n",
 			status);
 
 		goto exit;
@@ -552,11 +552,11 @@ SpbWriteRead(
 	if (bytesReturned < expectedLength)
 	{
 		status = STATUS_DEVICE_PROTOCOL_ERROR;
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
 			"SpbSequence returned with 0x%lu bytes expected:0x%lu bytes "
-			"status:%!STATUS!",
+			"status:0x%X\n",
 			bytesReturned,
 			expectedLength,
 			status);
@@ -612,10 +612,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error setting address pointer for Spb read - %!STATUS!",
+			"Error setting address pointer for Spb read - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -625,17 +625,17 @@ NTSTATUS Status indicating success or failure
 		status = WdfMemoryCreate(
 			WDF_NO_OBJECT_ATTRIBUTES,
 			NonPagedPool,
-			CS35L41_POOL_TAG,
+			CS35L43_POOL_TAG,
 			Length,
 			&memory,
 			(PVOID*)&buffer);
 
 		if (!NT_SUCCESS(status))
 		{
-			Cs35l41Print(
+			Cs35l43Print(
 				DEBUG_LEVEL_ERROR,
 				DBG_IOCTL,
-				"Error allocating memory for Spb read - %!STATUS!",
+				"Error allocating memory for Spb read - 0x%X\n",
 				status);
 			goto exit;
 		}
@@ -667,10 +667,10 @@ NTSTATUS Status indicating success or failure
 	if (!NT_SUCCESS(status) ||
 		bytesRead != Length)
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error reading from Spb - %!STATUS!",
+			"Error reading from Spb - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -777,10 +777,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error creating IoTarget object - %!STATUS!",
+			"Error creating IoTarget object - 0x%X\n",
 			status);
 
 		WdfObjectDelete(SpbContext->SpbIoTarget);
@@ -799,10 +799,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error creating Spb resource hub path string - %!STATUS!",
+			"Error creating Spb resource hub path string - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -820,10 +820,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error opening Spb target for communication - %!STATUS!",
+			"Error opening Spb target for communication - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -835,17 +835,17 @@ NTSTATUS Status indicating success or failure
 	status = WdfMemoryCreate(
 		WDF_NO_OBJECT_ATTRIBUTES,
 		NonPagedPool,
-		CS35L41_POOL_TAG,
+		CS35L43_POOL_TAG,
 		DEFAULT_SPB_BUFFER_SIZE,
 		&SpbContext->WriteMemory,
 		NULL);
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error allocating default memory for Spb write - %!STATUS!",
+			"Error allocating default memory for Spb write - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -853,17 +853,17 @@ NTSTATUS Status indicating success or failure
 	status = WdfMemoryCreate(
 		WDF_NO_OBJECT_ATTRIBUTES,
 		NonPagedPool,
-		CS35L41_POOL_TAG,
+		CS35L43_POOL_TAG,
 		DEFAULT_SPB_BUFFER_SIZE,
 		&SpbContext->ReadMemory,
 		NULL);
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error allocating default memory for Spb read - %!STATUS!",
+			"Error allocating default memory for Spb read - 0x%X\n",
 			status);
 		goto exit;
 	}
@@ -877,10 +877,10 @@ NTSTATUS Status indicating success or failure
 
 	if (!NT_SUCCESS(status))
 	{
-		Cs35l41Print(
+		Cs35l43Print(
 			DEBUG_LEVEL_ERROR,
 			DBG_IOCTL,
-			"Error creating Spb Waitlock - %!STATUS!",
+			"Error creating Spb Waitlock - 0x%X\n",
 			status);
 		goto exit;
 	}
