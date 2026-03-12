@@ -232,13 +232,13 @@ static NTSTATUS cs35l43_pcm_hw_params(PCS35L43_CONTEXT pDevice)
 		asp_wl << CS35L43_ASP_RX_WL_SHIFT);
 
 
-	if (pDevice->UID == 0 || pDevice->UID == 2 || pDevice->UID == 4) {
+	if (pDevice->UID == 0 || pDevice->UID == 1 || pDevice->UID == 2) {
 		cs35l43_reg_update_bits(pDevice,
 			CS35L43_ASP_FRAME_CONTROL5,
 			CS35L43_ASP_RX1_SLOT_MASK,
 			0 << CS35L43_ASP_RX1_SLOT_SHIFT);
 		Cs35l43Print(DEBUG_LEVEL_INFO, DBG_INIT,
-			"Right Slot UID:%d\n", pDevice->UID);
+			"Left Slot UID:%d\n", pDevice->UID);
 	}
 	else {
 		cs35l43_reg_update_bits(pDevice,
@@ -246,7 +246,7 @@ static NTSTATUS cs35l43_pcm_hw_params(PCS35L43_CONTEXT pDevice)
 			CS35L43_ASP_RX1_SLOT_MASK,
 			1 << CS35L43_ASP_RX1_SLOT_SHIFT);
 		Cs35l43Print(DEBUG_LEVEL_INFO, DBG_INIT,
-			"Left Slot UID:%d\n", pDevice->UID);
+			"Right Slot UID:%d\n", pDevice->UID);
 	}
 
 	return STATUS_SUCCESS;
